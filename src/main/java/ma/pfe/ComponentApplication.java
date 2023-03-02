@@ -1,0 +1,12 @@
+package ma.pfe;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ComponentApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ComponentApplication.class);
+        System.out.println("Done !!");
+    }
+}

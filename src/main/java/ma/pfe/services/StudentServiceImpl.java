@@ -15,10 +15,11 @@ public class StudentServiceImpl implements StudentService{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
 
+    @Qualifier("repo1")
     private StudentRepository repository;
     private StudentMapper mapper;
 
-    public StudentServiceImpl(@Qualifier("repo1") StudentRepository repository, StudentMapper mapper) {
+    public StudentServiceImpl(StudentRepository repository, StudentMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

@@ -1,21 +1,30 @@
 package ma.pfe.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class StudentEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    private StudentId studentId;
     @Column(name = "student_name")
     private String name;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "rue",column = @Column(name = "rue_student")),
+            @AttributeOverride(name = "avenue",column = @Column(name = "avenue_student"))
+    })
+    private Address addresses;
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name = "list_courses_student")
+    private List<CourseEntity> courses;
 
-    public Long getId() {
-        return id;
+    public StudentId getStudentId() {
+        return studentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStudentId(StudentId studentId) {
+        this.studentId = studentId;
     }
 
     public String getName() {
@@ -26,11 +35,31 @@ public class StudentEntity {
         this.name = name;
     }
 
+
+
+    public Address getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Address addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseEntity> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "StudentEntity{" +
-                "id=" + id +
+                "studentId=" + studentId +
                 ", name='" + name + '\'' +
+                ", addresses=" + addresses +
+                ", courses=" + courses +
                 '}';
     }
 }

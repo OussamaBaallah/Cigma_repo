@@ -3,6 +3,7 @@ package ma.pfe.services;
 import ma.pfe.dtos.StudentDto;
 import ma.pfe.mappers.StudentMapper;
 import ma.pfe.repositories.StudentRepository;
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,25 +18,24 @@ public class StudentServiceImpl implements StudentService{
 
     @Qualifier("repo1")
     private StudentRepository repository;
-    private StudentMapper mapper;
+    private StudentMapper mapper= Mappers.getMapper(StudentMapper.class);
 
-    public StudentServiceImpl(StudentRepository repository, StudentMapper mapper) {
+    public StudentServiceImpl(StudentRepository repository) {
         this.repository = repository;
-        this.mapper = mapper;
     }
 
     @Override
     public Long save(StudentDto dto) {
         LOGGER.debug("START METHOD SAVE SERVICE dto : {}",dto);
         StudentDto result = mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
-        return result.getId();
+        return result.getStudentId().getId();
     }
 
     @Override
     public Long update(StudentDto dto) {
         LOGGER.debug("START METHOD UPDATE SERVICE dto : {}",dto);
         StudentDto result = mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
-        return result.getId();
+        return result.getStudentId().getId();
     }
 
     @Override

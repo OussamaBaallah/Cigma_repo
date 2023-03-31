@@ -15,7 +15,7 @@ public class StudentEntity {
             @AttributeOverride(name = "avenue",column = @Column(name = "avenue_student"))
     })
     private Address addresses;
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(name = "list_courses_student")
     private List<CourseEntity> courses;
 

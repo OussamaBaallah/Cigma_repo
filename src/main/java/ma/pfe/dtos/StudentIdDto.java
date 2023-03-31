@@ -5,6 +5,14 @@ public class StudentIdDto {
     private Long id;
     private String code;
 
+    public StudentIdDto(Long id, String code) {
+        this.id = id;
+        this.code = code;
+    }
+
+    public StudentIdDto() {
+    }
+
     public Long getId() {
         return id;
     }
